@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
 import Reservations from '../Reservations/Reservations.js';
+import { getAllReservations } from '../apiCalls';
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      reservations: [
-        { id: 1, name: 'Angie', date: '8/8', time: '7:00', number: 3 },
-        { id: 2, name: 'Estelle', date: '8/9', time: '7:00', number: 3 },
-        { id: 3, name: 'Christine', date: '8/10', time: '7:00', number: 3 }
-      ]
+      reservations: []
     }
   }
+  
+  componentDidMount() {
+    getAllReservations()
+      .then((data) => {
+        this.setState({reservations: data.reservations})
+      })
+  }
+
+
   render() {
     return (
       <div className="App">
